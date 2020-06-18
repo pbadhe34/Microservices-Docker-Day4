@@ -1,0 +1,14 @@
+FROM tomcat:8.0-jre8 
+
+##RUN apt-get update && apt-get -y upgrade
+
+WORKDIR /usr/local/tomcat
+
+COPY tomcat-users.xml /usr/local/tomcat/conf/tomcat-users.xml
+COPY server.xml /usr/local/tomcat/conf/server.xml
+
+#Cppy the web app file to tomcat/webapps
+COPY rest-db-war.war /usr/local/tomcat/webapps/app.war
+
+##Request the port from Container OS
+EXPOSE 8090

@@ -1,0 +1,20 @@
+version: '3'
+services:
+  webapp:
+    image: pbadhe34/training:user-app
+    ports:
+         - "9090:8090"
+     
+  dbserver:
+    image: mysql:5.6     
+    ports:
+        - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "MyRootPass123"
+      MYSQL_DATABASE: user_data
+      MYSQL_USER: app-user
+      MYSQL_PASSWORD: "MyRootPass123"
+    volumes:
+       - /c/Docker-Share/data/mysqldata:/var/lib/mysql     
+ 
+  
