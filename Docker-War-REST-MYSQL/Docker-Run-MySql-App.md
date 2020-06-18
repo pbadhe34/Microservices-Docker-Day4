@@ -6,6 +6,10 @@ Run MySQL 5.6 database server in Docker container:
 docker run --name app-mysql -e MYSQL_ROOT_PASSWORD=MyRootPass123 -e MYSQL_DATABASE=user_data -e MYSQL_USER=app-user -e MYSQL_PASSWORD=MyRootPass123 -d mysql:5.6
  
 
+
+docker run --name app-mysql -d mysql:5.6
+
+
 Check the log to make sure the mysql server is running OK:
  
 docker logs app-mysql
@@ -133,11 +137,14 @@ Create a data directory on a suitable volume on your host
 
 The Volume specified here is used across the containers start and stop and will maintiain the database state across containers and across start and stop and removal operations.
 
-Volume dir : c/Docker-Share/app/mysqldata
+Volume dir : /c/Docker-Share/data/mysqldata
 
 On Windows to run with mounted dir as volume
 
-docker run --name app-mysql --volume /c/Docker-Share/app/mysqldata:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=MyRootPass123 -e MYSQL_DATABASE=user_data -e MYSQL_USER=app-user -e MYSQL_PASSWORD=MyRootPass123 -d mysql:5.6
+docker run --name app-mysql --volume /c/Docker-Share/data/mysqldata:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=MyRootPass123 -e MYSQL_DATABASE=user_data -e MYSQL_USER=app-user -e MYSQL_PASSWORD=MyRootPass123 -d mysql:5.6
+ 
+
+
 
 On Linux : The /mysql/data volume directory from ROOT directory gets created
 
@@ -192,6 +199,8 @@ mysql -uroot -p user_data  -e "select * from user_data.appusers"
 
 mysql -uroot -p user_data  -e "select * from hibernate_sequence"  
 
+
+mysql -uroot -p user_data -e "drop table user_data.appusers"  
 
 mysql -uroot -p user_data -e "commit"  
 
